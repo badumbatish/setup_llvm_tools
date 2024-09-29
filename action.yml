@@ -1,5 +1,5 @@
-name: "Install llvm toolings"
-description: "Install llvm toolings like lit, FileCheck, tablegen and stuff"
+name: "setup-llvm-toolings"
+description: "A GitHub Action to fetch LLVM toolings for your CI/CD."
 inputs:
   download_path:
     description: "Full path to the llvm tooling you would want to download. For example: https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.8/clang+llvm-18.1.8-x86_64-linux-gnu-ubuntu-18.04.tar.xz"
