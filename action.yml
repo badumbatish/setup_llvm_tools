@@ -1,6 +1,9 @@
 name: "Install llvm toolings"
 description: "Install llvm toolings like lit, FileCheck, tablegen and stuff"
 inputs:
+  download_path:
+    description: "Full path to the llvm tooling you would want to download. For example: https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.8/clang+llvm-18.1.8-x86_64-linux-gnu-ubuntu-18.04.tar.xz"
+    required: true 
   destination:
     description: "Directory to extract the tar.xz package to"
     required: false
@@ -13,22 +16,35 @@ runs:
       id: globals
       shell: bash
       run: |
-        echo "UBUNTU_LLVM_TOOLS=clang+llvm-18.1.7-x86_64-linux-gnu-ubuntu-18.04.tar.xz" >> "${GITHUB_OUTPUT}"
+        echo "LLVM_TOOLS=$(basename "${{ inputs.download_path }}")" >> "${GITHUB_OUTPUT}"
     - name: Try to at least say hi
       run: echo "hi!!!"
       shell: bash
     - name: Download llvm for ubuntu via wget
       shell: bash
       run: | 
-        wget https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.7/${{ steps.globals.outputs.UBUNTU_LLVM_TOOLS }} --no-verbose
+        wget ${{ inputs.download_path }} --no-verbose
     - name: Extract and install 
       run: |
-        sudo tar -xf ${{ steps.globals.outputs.UBUNTU_LLVM_TOOLS }} --directory ${{ inputs.destination }} --strip-components=1
+        sudo tar -xf ${{ steps.globals.outputs.LLVM_TOOLS }} --directory ${{ inputs.destination }} --strip-components=1
       shell: bash
+    - name: Set up LLVM environment variables
+      shell: bash
+      run: |
+        LLVM_ROOT=${{ steps.globals.outputs.LLVM_TOOLS }}
+        echo "LLVM_ROOT_DIR=$LLVM_ROOT" >> $GITHUB_ENV
+        echo "PATH=$LLVM_ROOT/bin:$PATH" >> $GITHUB_ENV
+        echo "LD_LIBRARY_PATH=$LLVM_ROOT/lib:$LD_LIBRARY_PATH" >> $GITHUB_ENV
 
-    - name: Check via ls
+    - name: Check content via ls
       run: |
         sudo ls -l ${{ inputs.destination }}/bin
         sudo ls -l ${{ inputs.destination }}/include
         sudo ls -l ${{ inputs.destination }}/lib
       shell: bash
+    - name: Check env
+      shell: bash
+      run: |
+        echo $PATH
+        echo $LLVM_ROOT_DIR
+        echo $LD_LIBRARY_PATH

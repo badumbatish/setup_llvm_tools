@@ -10,8 +10,16 @@ jobs:
     - name: Invoking the action 
       uses: ./  # Refers to the action in the current repository
       with:
+        download_path: "https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.8/clang+llvm-18.1.8-x86_64-linux-gnu-ubuntu-18.04.tar.xz"
         destination: "/usr/local"
     - name: Check for llvm in /usr/local
       run: |
         ls -l /usr/local/bin | grep "llvm"
         ls -l /usr/local/lib | grep "LLVM"
+    - name: Check env
+      shell: bash
+      run: |
+        echo $PATH
+        echo $LLVM_ROOT_DIR
+        echo $LD_LIBRARY_PATH
+
