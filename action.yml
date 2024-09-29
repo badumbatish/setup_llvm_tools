@@ -31,7 +31,7 @@ runs:
     - name: Set up LLVM environment variables
       shell: bash
       run: |
-        LLVM_ROOT=${{ steps.globals.outputs.LLVM_TOOLS }}
+        LLVM_ROOT=${{ inputs.destination }}
         echo "LLVM_ROOT_DIR=$LLVM_ROOT" >> $GITHUB_ENV
         echo "PATH=$LLVM_ROOT/bin:$PATH" >> $GITHUB_ENV
         echo "LD_LIBRARY_PATH=$LLVM_ROOT/lib:$LD_LIBRARY_PATH" >> $GITHUB_ENV
