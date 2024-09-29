@@ -20,7 +20,7 @@ runs:
     - name: Download llvm for ubuntu via wget
       shell: bash
       run: | 
-        wget https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.7/${{ steps.globals.outputs.UBUNTU_LLVM_TOOLS }}
+        wget https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.7/${{ steps.globals.outputs.UBUNTU_LLVM_TOOLS }} --no-verbose
     - name: Extract and install 
       run: |
         sudo tar -xf ${{ steps.globals.outputs.UBUNTU_LLVM_TOOLS }} --directory ${{ inputs.destination }} --strip-components=1
