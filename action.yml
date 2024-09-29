@@ -12,3 +12,10 @@ runs:
     - name: Try to at least say hi
       run: echo "hi!!!"
       shell: bash
+    - name: Download llvm for ubuntu via wget
+      run: wget https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.7/clang+llvm-18.1.7-x86_64-linux-gnu-ubuntu-18.04.tar.xz
+      shell: bash
+
+    - name: Run "ls"
+      run: ls -l
+      shell: bash
