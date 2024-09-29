@@ -1,0 +1,14 @@
+name: "Install llvm toolings"
+description: "Install llvm toolings like lit, FileCheck, tablegen and stuff"
+inputs:
+  destination:
+    description: "Directory to extract the tar.xz package to"
+    required: false
+    default: "/usr/local"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Try to at least say hi
+      run: echo "hi!!!"
+      shell: bash

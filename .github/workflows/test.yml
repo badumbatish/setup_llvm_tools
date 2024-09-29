@@ -1,0 +1,14 @@
+name: Test Install Tar.xz Action
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Tar.xz Package
+      uses: ./  # Refers to the action in the current repository
+      with:
+        destination: "/usr/local"
+
