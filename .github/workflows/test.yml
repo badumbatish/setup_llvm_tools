@@ -1,4 +1,4 @@
-name: Test Install Tar.xz Action
+name: Test setup llvm tools action 
 
 on: [push]
 
@@ -6,8 +6,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Install Tar.xz Package
+    - uses: actions/checkout@v4
+    - name: Invoking the action 
       uses: ./  # Refers to the action in the current repository
       with:
         destination: "/usr/local"
