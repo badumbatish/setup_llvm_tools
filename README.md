@@ -1,5 +1,7 @@
 # setup_llvm_tools
 
+> The repository is archived and moved to Shuriken-Group
+
 ## Overview
 A GitHub Action to fetch LLVM toolings for your CI/CD. 
 
